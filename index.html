@@ -164,8 +164,8 @@
     --gold-light: #735B12;
     --gold-dark: #52400C;
     --gold-muted: rgba(154, 123, 28, 0.12);
-    --text-main: #0F172A;
-    --text-muted: #475569;
+    --text-main: #0F172A; /* High-contrast dark text for light mode */
+    --text-muted: #334155; /* High-contrast secondary text for light mode */
     --hero-heading: #0F172A;
     --hero-lede: #1E293B;
     --border-subtle: rgba(154, 123, 28, 0.25);
@@ -200,6 +200,7 @@
   p, .lede, .card__body p, .feat p, .panel p, .office address, .footer__tagline, .steps p, .why__item p {
     text-align: justify;
     text-justify: inter-word;
+    color: var(--text-main);
   }
 
   h1, h2, h3, h4, .h-hero, .h-sec, .h-card {
@@ -223,7 +224,7 @@
     .wrap { padding: 0 2rem; }
   }
 
-  /* Global Fixed Right-Side 3D Scroll Lift Model Widget (Fully Functional JS Scroll Sync) */
+  /* Global Fixed Right-Side 3D Scroll Lift Model Widget */
   .global-lift-widget {
     position: fixed;
     right: 1.5rem;
@@ -238,6 +239,45 @@
     box-shadow: var(--shadow-luxury);
     backdrop-filter: blur(10px);
   }
+
+  /* Mobile and Tablet Elevator Motion Bar */
+  .mobile-lift-bar {
+    display: none;
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    z-index: 9999;
+    background: var(--bg-surface);
+    border: 1.5px solid var(--gold-primary);
+    border-radius: 25px;
+    padding: 6px 14px;
+    box-shadow: var(--shadow-luxury);
+  }
+  .mobile-lift-track {
+    width: 120px;
+    height: 12px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    position: relative;
+    border: 1px solid var(--border-subtle);
+    overflow: hidden;
+  }
+  .mobile-lift-cabin-indicator {
+    width: 24px;
+    height: 100%;
+    background: var(--gold-primary);
+    border-radius: 4px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: transform 0.1s ease-out;
+  }
+
+  @media(max-width: 1023px) {
+    .global-lift-widget { display: none; }
+    .mobile-lift-bar { display: flex; align-items: center; gap: 8px; }
+  }
+
   .global-lift-shaft {
     width: 60px;
     height: 180px;
@@ -363,10 +403,6 @@
     .topbar .wrap { justify-content: center; text-align: center; }
     .topbar__hide { display: none; }
   }
-
-  /* ==========================================================================
-     INDEX PAGE HEADER & FOOTER OVERRIDES (ISOLATED & HIGH-CONTRAST)
-     ========================================================================== */
 
   /* Header Overrides */
   .header {
@@ -1068,7 +1104,6 @@
   /* Mobile Navigation Drawer Overlay & Styles */
   @media(max-width: 1023px) {
     .icon-btn.nav-toggle { display: block; }
-    .global-lift-widget { display: none; }
     
     .nav {
       position: fixed;
@@ -1136,6 +1171,14 @@
   <span class="global-lift-label" id="globalLiftStatus">Moving</span>
 </aside>
 
+<!-- Mobile/Tablet Elevator Motion Bar -->
+<div class="mobile-lift-bar" id="mobileLiftBar">
+  <span style="font-size: 0.65rem; font-weight: 800; color: var(--gold-primary);">LIFT</span>
+  <div class="mobile-lift-track">
+    <div class="mobile-lift-cabin-indicator" id="mobileLiftIndicator"></div>
+  </div>
+</div>
+
 <div class="topbar">
   <div class="wrap">
     <span>Call support: <a href="tel:+918925448131">+91 89254 48131</a> &nbsp;/&nbsp; <a href="tel:+919500158530">95001 58530</a></span>
@@ -1146,8 +1189,8 @@
 <header class="header" id="header">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="Tekton Elevators home">
-      <img class="logo__img logo__light" src="assets/logo-lock-light.png" alt="Tekton Elevators" width="900" height="207">
-      <img class="logo__img logo__dark" src="assets/logo-lock.png" alt="Tekton Elevators" width="900" height="207">
+      <img class="logo__img logo__light" src="./logo-full-light.png" alt="Tekton Elevators" width="900" height="207">
+      <img class="logo__img logo__dark" src="./logo-full-light.png" alt="Tekton Elevators" width="900" height="207">
     </a>
 
     <div class="nav-overlay" id="navOverlay"></div>
@@ -1498,8 +1541,8 @@
   <div class="wrap">
     <div class="footer__grid">
       <div>
-        <img class="logo__img logo__light" src="./assets/logo-full-light.png" alt="Tekton Elevators Logo" style="height: 50px;">
-        <img class="logo__img logo__dark" src="./assets/logo-full.png" alt="Tekton Elevators Logo" style="height: 50px;">
+        <img class="logo__img logo__light" src="./logo-full-light.png" alt="Tekton Elevators Logo" style="height: 50px;">
+        <img class="logo__img logo__dark" src="./logo-full-light.png" alt="Tekton Elevators Logo" style="height: 50px;">
         <p class="footer__tagline">Bringing horizons closer through precision technology.</p>
       </div>
       <div>
@@ -1583,9 +1626,10 @@
     link.addEventListener('click', closeMenu);
   });
 
-  // Fixed Global Lift Model Scroll Physics Script
+  // Fixed Global Lift Model & Mobile Bar Scroll Physics Script
   const globalLiftCabin = document.getElementById('globalLiftCabin');
   const globalLiftStatus = document.getElementById('globalLiftStatus');
+  const mobileLiftIndicator = document.getElementById('mobileLiftIndicator');
   let globalScrollTimeout;
 
   const movingColors = [
@@ -1602,9 +1646,17 @@
 
     const scrollFraction = Math.min(Math.max(scrollY / maxScroll, 0), 1);
     
-    // Max movement range inside 180px shaft minus cabin height (55px) = ~115px
+    // Desktop Lift Movement (Vertical)
     const translateY = scrollFraction * 115;
-    globalLiftCabin.style.transform = `translateY(${translateY}px)`;
+    if (globalLiftCabin) {
+      globalLiftCabin.style.transform = `translateY(${translateY}px)`;
+    }
+
+    // Mobile & Tablet Lift Movement (Horizontal)
+    if (mobileLiftIndicator) {
+      const translateX = scrollFraction * 96;
+      mobileLiftIndicator.style.transform = `translateX(${translateX}px)`;
+    }
     
     const colorIndex = Math.min(
       Math.floor(scrollFraction * movingColors.length),
@@ -1612,19 +1664,23 @@
     );
     const activeMovingStyle = movingColors[colorIndex];
 
-    globalLiftCabin.style.setProperty('--moving-color', activeMovingStyle.color);
-    globalLiftCabin.style.setProperty('--moving-glow', activeMovingStyle.glow);
-    globalLiftCabin.style.setProperty('--moving-bg', activeMovingStyle.bg);
-    
-    globalLiftCabin.classList.remove('doors-open');
-    globalLiftCabin.classList.add('is-moving');
-    globalLiftStatus.textContent = "Moving";
+    if (globalLiftCabin) {
+      globalLiftCabin.style.setProperty('--moving-color', activeMovingStyle.color);
+      globalLiftCabin.style.setProperty('--moving-glow', activeMovingStyle.glow);
+      globalLiftCabin.style.setProperty('--moving-bg', activeMovingStyle.bg);
+      
+      globalLiftCabin.classList.remove('doors-open');
+      globalLiftCabin.classList.add('is-moving');
+      if (globalLiftStatus) globalLiftStatus.textContent = "Moving";
+    }
 
     clearTimeout(globalScrollTimeout);
     globalScrollTimeout = setTimeout(() => {
-      globalLiftCabin.classList.remove('is-moving');
-      globalLiftCabin.classList.add('doors-open');
-      globalLiftStatus.textContent = "Open";
+      if (globalLiftCabin) {
+        globalLiftCabin.classList.remove('is-moving');
+        globalLiftCabin.classList.add('doors-open');
+        if (globalLiftStatus) globalLiftStatus.textContent = "Open";
+      }
     }, 120);
   });
 </script>
