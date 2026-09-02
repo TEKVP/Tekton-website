@@ -132,7 +132,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   /* ==========================================================================
-     TEKTON ELEVATORS — ULTIMATE LUXURY DESIGN SYSTEM (FIXED & VISIBLE)
+     TEKTON ELEVATORS — ULTIMATE LUXURY DESIGN SYSTEM
      ========================================================================== */
   :root[data-theme="dark"] {
     --bg-primary: #05070A;
@@ -156,16 +156,16 @@
   }
 
   :root[data-theme="light"] {
-    --bg-primary: #F8FAFC;
-    --bg-secondary: #EDF2F7;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F1F5F9;
     --bg-surface: #FFFFFF;
     --bg-surface-hover: #E2E8F0;
     --gold-primary: #9A7B1C;
     --gold-light: #735B12;
     --gold-dark: #52400C;
     --gold-muted: rgba(154, 123, 28, 0.12);
-    --text-main: #0F172A; /* High-contrast dark text for light mode */
-    --text-muted: #334155; /* High-contrast secondary text for light mode */
+    --text-main: #0F172A;
+    --text-muted: #334155;
     --hero-heading: #0F172A;
     --hero-lede: #1E293B;
     --border-subtle: rgba(154, 123, 28, 0.25);
@@ -207,7 +207,7 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: var(--hero-heading);
+    color: var(--hero-heading) !important;
     transition: color 0.4s ease;
   }
 
@@ -240,33 +240,33 @@
     backdrop-filter: blur(10px);
   }
 
-  /* Mobile and Tablet Elevator Motion Bar */
+  /* Mobile Lift Widget Positioned Above AI Assistant */
   .mobile-lift-bar {
     display: none;
     position: fixed;
-    bottom: 15px;
-    left: 15px;
-    z-index: 9999;
+    bottom: 80px;
+    right: 1.5rem;
+    z-index: 999;
     background: var(--bg-surface);
     border: 1.5px solid var(--gold-primary);
-    border-radius: 25px;
-    padding: 6px 14px;
+    border-radius: 20px;
+    padding: 6px 12px;
     box-shadow: var(--shadow-luxury);
   }
   .mobile-lift-track {
-    width: 120px;
-    height: 12px;
+    width: 100px;
+    height: 10px;
     background: var(--bg-secondary);
-    border-radius: 6px;
+    border-radius: 5px;
     position: relative;
     border: 1px solid var(--border-subtle);
     overflow: hidden;
   }
   .mobile-lift-cabin-indicator {
-    width: 24px;
+    width: 20px;
     height: 100%;
     background: var(--gold-primary);
-    border-radius: 4px;
+    border-radius: 3px;
     position: absolute;
     left: 0;
     top: 0;
@@ -404,7 +404,7 @@
     .topbar__hide { display: none; }
   }
 
-  /* Header Overrides */
+  /* Header */
   .header {
     position: sticky;
     top: 0;
@@ -442,13 +442,6 @@
   }
   .nav a:hover { color: var(--gold-light) !important; }
   .nav a:hover::after { width: 100%; }
-
-  :root[data-theme="light"] .nav a {
-    color: #0F172A !important;
-  }
-  :root[data-theme="light"] .nav a:hover {
-    color: #9A7B1C !important;
-  }
 
   .header__actions { display: flex; align-items: center; gap: 1rem; }
   
@@ -499,24 +492,6 @@
   .footer ul { display: flex; flex-direction: column; gap: 0.65rem; }
   .footer a { font-size: 0.875rem; color: var(--text-main) !important; font-weight: 500; text-decoration: none; transition: color 0.3s; }
   .footer a:hover { color: var(--gold-primary) !important; text-decoration: underline; text-underline-offset: 4px; }
-  
-  :root[data-theme="light"] .footer {
-    background: #EDF2F7;
-    color: #0F172A;
-  }
-  :root[data-theme="light"] .footer h4 {
-    color: #0F172A !important;
-  }
-  :root[data-theme="light"] .footer a {
-    color: #1E293B !important;
-    font-weight: 600;
-  }
-  :root[data-theme="light"] .footer a:hover {
-    color: #9A7B1C !important;
-  }
-  :root[data-theme="light"] .footer__tagline {
-    color: #475569;
-  }
 
   .footer__bottom { 
     border-top: 1px solid var(--border-subtle); 
@@ -611,8 +586,8 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at center, rgba(248, 250, 252, 0.8) 0%, rgba(248, 250, 252, 0.94) 85%, var(--bg-primary) 100%),
-                linear-gradient(180deg, rgba(248, 250, 252, 0.85) 0%, transparent 40%, var(--bg-primary) 100%);
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.95) 85%, var(--bg-primary) 100%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, transparent 40%, var(--bg-primary) 100%);
   }
 
   .hero__inner { max-width: 800px; margin-left: max(1.5rem, calc((100vw - 1320px) / 2)); z-index: 1; padding-right: 1.5rem; }
@@ -622,7 +597,6 @@
     line-height: 1.1;
     font-weight: 800;
     margin-bottom: 1.25rem;
-    color: var(--hero-heading);
   }
   .gold-italic {
     font-style: italic;
@@ -694,11 +668,6 @@
   .stat-item:nth-child(3) .stat__num { background-image: linear-gradient(135deg, #10B981 0%, #047857 100%); }
   .stat-item:nth-child(4) .stat__num { background-image: linear-gradient(135deg, #F43F5E 0%, #BE123C 100%); }
 
-  :root[data-theme="dark"] .stat-item:nth-child(1) .stat__num { background-image: linear-gradient(135deg, #7DD3FC 0%, #38BDF8 100%); }
-  :root[data-theme="dark"] .stat-item:nth-child(2) .stat__num { background-image: linear-gradient(135deg, #D8B4FE 0%, #A855F7 100%); }
-  :root[data-theme="dark"] .stat-item:nth-child(3) .stat__num { background-image: linear-gradient(135deg, #6EE7B7 0%, #34D399 100%); }
-  :root[data-theme="dark"] .stat-item:nth-child(4) .stat__num { background-image: linear-gradient(135deg, #FDA4AF 0%, #F43F5E 100%); }
-
   .stat__label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--stat-text); font-weight: 700; }
 
   /* Sections Layout */
@@ -710,7 +679,7 @@
 
   .sec-head { max-width: 700px; margin-bottom: 3rem; }
   @media(min-width: 768px) { .sec-head { margin-bottom: 4rem; } }
-  .h-sec { font-size: clamp(1.85rem, 3vw, 3rem); line-height: 1.15; font-weight: 700; margin-top: 0.5rem; color: var(--hero-heading); }
+  .h-sec { font-size: clamp(1.85rem, 3vw, 3rem); line-height: 1.15; font-weight: 700; margin-top: 0.5rem; }
 
   .split { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
   @media(min-width: 1024px) { .split { grid-template-columns: 1fr 1fr; gap: 5rem; } }
@@ -1078,7 +1047,7 @@
   .cta-final p { max-width: 650px; margin: 1rem auto 2.5rem auto; color: var(--text-main); text-align: justify; text-justify: inter-word; }
   .cta-final .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
 
-  /* AI Assistant Chat Trigger Button */
+  /* AI Assistant Button */
   .float-ai-chat {
     position: fixed;
     bottom: 1.5rem; right: 1.5rem;
@@ -1101,7 +1070,7 @@
   }
   .float-ai-chat:hover { transform: scale(1.05); box-shadow: var(--glow-gold); }
 
-  /* Mobile Navigation Drawer Overlay & Styles */
+  /* Mobile Navigation Drawer */
   @media(max-width: 1023px) {
     .icon-btn.nav-toggle { display: block; }
     
@@ -1171,7 +1140,7 @@
   <span class="global-lift-label" id="globalLiftStatus">Moving</span>
 </aside>
 
-<!-- Mobile/Tablet Elevator Motion Bar -->
+<!-- Mobile Lift Widget Above AI Button -->
 <div class="mobile-lift-bar" id="mobileLiftBar">
   <span style="font-size: 0.65rem; font-weight: 800; color: var(--gold-primary);">LIFT</span>
   <div class="mobile-lift-track">
@@ -1189,8 +1158,8 @@
 <header class="header" id="header">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="Tekton Elevators home">
-      <img class="logo__img logo__light" src="logo-lock.png" alt="Tekton Elevators" width="900" height="207">
-      <img class="logo__img logo__dark" src="logo-lock.png" alt="Tekton Elevators" width="900" height="207">
+      <img class="logo__img logo__light" src="./logo-full-light.png" alt="Tekton Elevators" width="900" height="207">
+      <img class="logo__img logo__dark" src="./logo-full-light.png" alt="Tekton Elevators" width="900" height="207">
     </a>
 
     <div class="nav-overlay" id="navOverlay"></div>
@@ -1279,7 +1248,7 @@
           </ul>
         </div>
         <figure class="split__media split__media--framed reveal">
-          <img src="tech-traction.webp" alt="Close-up of a gearless permanent-magnet traction machine with steel ropes inside a machine-room-less shaft head" width="1536" height="1024" loading="lazy">
+          <img src="./assets/tech-traction.webp" alt="Close-up of a gearless permanent-magnet traction machine with steel ropes inside a machine-room-less shaft head" width="1536" height="1024" loading="lazy">
         </figure>
       </div>
 
@@ -1315,7 +1284,7 @@
 
       <div class="cards">
         <article class="card reveal">
-          <div class="card__img"><img src="prod-home-lift.webp" alt="Champagne gold glass home lift installed in a modern villa interior" width="1024" height="1536" loading="lazy"></div>
+          <div class="card__img"><img src="./assets/prod-home-lift.webp" alt="Champagne gold glass home lift installed in a modern villa interior" width="1024" height="1536" loading="lazy"></div>
           <div class="card__body">
             <h3 class="h-card">Residential & luxury home lifts</h3>
             <p>Compact, gearless, machine room-less (MRL) elevators with panoramic glass cabins, designed for modern homes, villas and private residences.</p>
@@ -1324,7 +1293,7 @@
         </article>
 
         <article class="card reveal">
-          <div class="card__img"><img src="prod-commercial.webp" alt="Bank of navy and stainless steel commercial passenger elevator doors in a corporate lobby" width="1536" height="1024" loading="lazy"></div>
+          <div class="card__img"><img src="./assets/prod-commercial.webp" alt="Bank of navy and stainless steel commercial passenger elevator doors in a corporate lobby" width="1536" height="1024" loading="lazy"></div>
           <div class="card__body">
             <h3 class="h-card">Commercial passenger lifts</h3>
             <p>High-speed, high-capacity passenger elevators with smart VVVF energy-saving drives and AI-driven destination dispatching that minimises peak-hour wait times.</p>
@@ -1333,7 +1302,7 @@
         </article>
 
         <article class="card reveal">
-          <div class="card__img"><img src="prod-freight.webp" alt="Wide stainless steel hospital bed lift with open doors in a clean hospital corridor" width="1536" height="1024" loading="lazy"></div>
+          <div class="card__img"><img src="./assets/prod-freight.webp" alt="Wide stainless steel hospital bed lift with open doors in a clean hospital corridor" width="1536" height="1024" loading="lazy"></div>
           <div class="card__body">
             <h3 class="h-card">Hospital & heavy-duty freight lifts</h3>
             <p>Rugged material and goods elevators engineered specifically for factories, warehouses and hospital stretcher transport under continuous duty cycles.</p>
@@ -1342,7 +1311,7 @@
         </article>
 
         <article class="card reveal">
-          <div class="card__img"><img src="prod-escalator.webp" alt="Pair of modern escalators with gold LED skirt lighting in a premium mall atrium" width="1536" height="1024" loading="lazy"></div>
+          <div class="card__img"><img src="./assets/prod-escalator.webp" alt="Pair of modern escalators with gold LED skirt lighting in a premium mall atrium" width="1536" height="1024" loading="lazy"></div>
           <div class="card__body">
             <h3 class="h-card">Escalators & moving walkways</h3>
             <p>Heavy-duty, high-efficiency escalators and moving ramps engineered for continuous mobility in malls, airports and public transport hubs.</p>
@@ -1626,7 +1595,7 @@
     link.addEventListener('click', closeMenu);
   });
 
-  // Fixed Global Lift Model & Mobile Bar Scroll Physics Script
+  // Fixed Global Lift Model Scroll Physics Script
   const globalLiftCabin = document.getElementById('globalLiftCabin');
   const globalLiftStatus = document.getElementById('globalLiftStatus');
   const mobileLiftIndicator = document.getElementById('mobileLiftIndicator');
@@ -1646,15 +1615,15 @@
 
     const scrollFraction = Math.min(Math.max(scrollY / maxScroll, 0), 1);
     
-    // Desktop Lift Movement (Vertical)
+    // Desktop Lift Movement
     const translateY = scrollFraction * 115;
     if (globalLiftCabin) {
       globalLiftCabin.style.transform = `translateY(${translateY}px)`;
     }
 
-    // Mobile & Tablet Lift Movement (Horizontal)
+    // Mobile Lift Movement
     if (mobileLiftIndicator) {
-      const translateX = scrollFraction * 96;
+      const translateX = scrollFraction * 80;
       mobileLiftIndicator.style.transform = `translateX(${translateX}px)`;
     }
     
@@ -1699,7 +1668,6 @@
 
   <!-- Animated Lift Modal Box -->
   <div class="ai-lift-modal" id="aiLiftModal" aria-hidden="true">
-    <!-- Physical Lift Door Animation Frame -->
     <div class="ai-lift-shaft">
       <div class="ai-door-pane ai-door-left" id="aiDoorLeft">
         <div class="door-handle"></div>
@@ -1708,7 +1676,6 @@
         <div class="door-handle"></div>
       </div>
 
-      <!-- Inner Cabin Chat Screen (Behind Doors) -->
       <div class="ai-cabin-interior">
         <header class="ai-chat-header">
           <div class="ai-brand-title">
@@ -1720,7 +1687,6 @@
         </header>
 
         <div class="ai-chat-log" id="aiChatLog">
-          <!-- Initial Welcome Message -->
           <div class="tkmsg tkmsg--bot">
             <div class="tkmsg__body">
               Good day! Welcome to Tekton Elevators!. How may I assist you?
@@ -1728,7 +1694,6 @@
           </div>
         </div>
 
-        <!-- Suggestion Chips -->
         <div class="ai-suggestions" id="aiSuggestions">
           <button type="button" data-query="What is the pit depth required for a 1.0 m/s lift under IS 14665?">Pit Depth (IS 14665)</button>
           <button type="button" data-query="How does the Automatic Rescue Device (ARD) work?">ARD Safety Rules</button>
